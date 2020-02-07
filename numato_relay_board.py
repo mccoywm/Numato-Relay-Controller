@@ -187,8 +187,8 @@ class RelayBoard(object):
             # If input is an integer value (hex or decimal)
             relay_vals = hex(relay_vals)[2:]
             # Left pad with zeroes
-            relay_vals = relay_vals.zfill(((self.number_of_relays//4) + 1) -
-                                          len(relay_vals))
+            bits = self.number_of_relays//4
+            relay_vals = relay_vals.zfill(bits)
         elif type(relay_vals) == list:
             temp_vals = 0
             if len(relay_vals) > 0:
@@ -198,8 +198,8 @@ class RelayBoard(object):
             else:
                 temp_vals = 0
             temp_vals = hex(temp_vals)[2:]
-            relay_vals = temp_vals.zfill(((self.number_of_relays//4) + 1) -
-                                         len(temp_vals))
+            bits = self.number_of_relays//4
+            relay_vals = temp_vals.zfill(bits)
         else:
             return False
         _ = self.device.write(bytes('relay writeall %s\r' % relay_vals,
